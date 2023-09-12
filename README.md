@@ -170,6 +170,8 @@ To download the dataset : https://www.cvlibs.net/datasets/kitti/raw_data.php
 Before the grid is updated again at the next time step, it must be shifted according to the movement of the Robot. Therefore, we need to find the next pose of the vehicle.
 
 The fuction look like the following:
+
+
   def shift_pose_dgm(dgm, init, fin):
   dgm_o = dgm.copy()
   theta = init[2] 
