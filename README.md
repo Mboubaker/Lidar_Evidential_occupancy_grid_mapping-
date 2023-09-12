@@ -9,7 +9,7 @@ This reposity present an approach to build 2D occupancy grid maps with Lidar dat
 ### 6 - Validation of results with ground truth
 
 <p align="center">   
-  <img src="https://github.com/Mboubaker/Lidar_Evidential_occupancy_grid_mapping-/assets/97898968/f149f3ba-5d0c-4e21-ab8d-1827691a4e0a.png?raw=true" alt="Sublime's custom image"/>
+  <img src="https://github.com/Mboubaker/Lidar_Evidential_occupancy_grid_mapping-/assets/97898968/eebb9268-7b59-41e6-a8a3-2385d4625331.png?raw=true" alt="Sublime's custom image"/>
        
 </p>
 <p align="center">                                  
