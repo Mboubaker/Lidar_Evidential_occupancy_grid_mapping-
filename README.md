@@ -1,4 +1,4 @@
-this reposity present an approach to build 2D occupancy grid maps with Lidar data
+This reposity present an approach to build 2D occupancy grid maps with Lidar data
 
 ## Pipeline for creating an obvious occupancy grid from Lidar data
 ### 1 - Ground filtering method
@@ -9,7 +9,7 @@ this reposity present an approach to build 2D occupancy grid maps with Lidar dat
 ### 6 - Validation of results with ground truth
 
 <p align="center">   
-  <img src="https://github.com/Mboubaker/Lidar_Evidential_occupancy_grid_mapping-/assets/97898968/0aec85d0-3460-4459-82a7-dcdb6bc1bf48.png?raw=true" alt="Sublime's custom image"/>
+  <img src="https://github.com/Mboubaker/Lidar_Evidential_occupancy_grid_mapping-/assets/97898968/f149f3ba-5d0c-4e21-ab8d-1827691a4e0a.png?raw=true" alt="Sublime's custom image"/>
        
 </p>
 <p align="center">                                  
