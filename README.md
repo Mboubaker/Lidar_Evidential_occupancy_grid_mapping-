@@ -283,3 +283,65 @@ to compute the expectations.
 <p align="center">                                  
 Figure :  Transition from mass function to decision using pignistic probability
 
+
+
+
+### 6 - Validation of results with ground truth
+
+
+To evaluate or validate an occupancy map against a ground truth, we can use various metrics commonly used in the field of robotics and cartography. Here are some popular measures:
+
+- Intersection over Union (IoU)
+
+- True Positive (TP), True Negative (TN), False Positive (FP), False Negative (FN)
+
+- Precision and Recall
+
+- Accuracy
+  
+- F1 score
+
+These metrics can provide different information about the performance of the occupancy grid map compared to the ground truth. Depending on the specific application requirements and characteristics, one or more of these metrics can be chosen to evaluate the performance of the map.
+
+The fuction look like the following:
+
+
+      def evaluate_occupancy_map(occupancy_map, ground_truth_map):
+    # Ensure both maps have the same shape
+
+
+
+    
+    # Flatten the maps to simplify calculations
+
+    assert occupancy_map.shape == ground_truth_map.shape, "Map shapes do not match."
+
+    occupancy_map = occupancy_map.flatten()
+    ground_truth_map = ground_truth_map.flatten()
+
+    # Calculate evaluation metrics
+    intersection = np.sum(np.logical_and(occupancy_map, ground_truth_map))
+    union = np.sum(np.logical_or(occupancy_map, ground_truth_map))
+    true_positive = intersection
+    true_negative = np.sum(np.logical_not(np.logical_or(occupancy_map, ground_truth_map)))
+    false_positive = np.sum(np.logical_and(occupancy_map, np.logical_not(ground_truth_map)))
+    false_negative = np.sum(np.logical_and(np.logical_not(occupancy_map), ground_truth_map))
+    precision = true_positive / (true_positive + false_positive)
+    recall = true_positive / (true_positive + false_negative)
+    accuracy = (true_positive + true_negative) / (true_positive + true_negative + false_positive + false_negative)
+
+    f1_score = 2 * (precision * recall) / (precision + recall)
+
+    # Return the evaluation metrics
+    evaluation_metrics = {
+        'Intersection over Union (IoU)': intersection / union,
+        'True Positive': true_positive,
+        'True Negative': true_negative,
+        'False Positive': false_positive,
+        'False Negative': false_negative,
+        'Precision': precision,
+        'Recall': recall,
+        'F1 Score': f1_score
+    }
+    
+    return evaluation_metrics
