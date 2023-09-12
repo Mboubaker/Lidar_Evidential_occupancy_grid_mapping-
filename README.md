@@ -40,10 +40,10 @@ KDTree is used in the given context to perform a quick nearest neighbor search.
 
 The K-nearest neighbors (KNN) algorithm is used to find the nearest neighbors of a given point in a point cloud.
 
-The calls look like the following:
+The fuction look like the following:
 
 
-      def filter_ground_points_grid_knn(point_cloud_file, grid_size=2, min_points=1, max_height_diff=0.2):
+    def filter_ground_points_grid_knn(point_cloud_file, grid_size=2, min_points=1, max_height_diff=0.2):
     # Load the point cloud data from the .bin file
     point_cloud = np.load(point_cloud_file).reshape(-1, 4)
     #point_cloud = point_cloud[point_cloud[:,2]<=0,:]
@@ -110,6 +110,46 @@ Figure :  Filtering of points on the ground, In red: points on the ground,  In g
 
 SVM “support vector machines” is a supervised machine learning algorithm used for classification and regression tasks.
 The main goal of SVM in this case is to find the optimal hyperplane that separates different classes while maximizing the margin between the closest data points of each class.
+
+The fuction look like the following:
+
+    def filter_ground_points_svm(point_cloud_file):
+    # Load the point cloud data from the .bin file
+    point_cloud = np.fromfile(point_cloud_file, dtype=np.float32).reshape(-1, 4)
+    point_cloud = point_cloud[point_cloud[:,2]<=8,:]
+    # Extract the X, Y, and Z coordinates from the point cloud data
+    points_xyz = point_cloud[:, :3]
+    #points_xyz = points_xyz[points_xyz[:,2]<=0,:]
+    # Apply OneClassSVM for outlier detection
+    model = OneClassSVM(kernel='linear')
+    model.fit(points_xyz)
+
+    # Predict the labels for the entire point cloud
+    labels = model.predict(points_xyz)
+
+    # Separate the ground and non-ground points based on the predicted labels
+    ground_points = point_cloud[labels == 1]
+    non_ground_points = point_cloud[labels == -1]
+
+    # Create a 3D plot
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Plot ground points in red color
+    ax.scatter(ground_points[:, 0], ground_points[:, 1], ground_points[:, 2], c='r', marker='.')
+
+    # Plot non-ground points in green color
+    ax.scatter(non_ground_points[:, 0], non_ground_points[:, 1], non_ground_points[:, 2], c='g', marker='.')
+
+    # Set axes labels
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+
+    # Show the plot
+    plt.show()
+
+
 
 
 <p align="center">   
