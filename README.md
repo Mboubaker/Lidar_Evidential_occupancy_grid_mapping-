@@ -25,16 +25,79 @@ Lidar point cloud filtering is the process of separating ground points from non-
 #### 1.1  Grid based filtering algorithm
 
 In this method:
+
 1- we use a grid-based filtering approach to divide the point cloud into cells based on the grid_size parameter.
+
 2- For each grid cell, we check if it contains mostly ground points based on the number of points (min_points) and height variation (max_height_diff) in the cell.
+
 3- Points in cells that meet the criteria are labeled as ground points, while points in other cells are labeled as non-ground points.
+
 4- The function uses scikit-learn's KD-tree data structure to efficiently perform the nearest neighbor (KNN) search for each point.
+
 5- It then iterates through each single grid cell, calculates the height variation and assigns labels accordingly.
 
 KDTree is used in the given context to perform a quick nearest neighbor search.
+
 The K-nearest neighbors (KNN) algorithm is used to find the nearest neighbors of a given point in a point cloud.
 
+The calls look like the following:
 
+
+      def filter_ground_points_grid_knn(point_cloud_file, grid_size=2, min_points=1, max_height_diff=0.2):
+    # Load the point cloud data from the .bin file
+    point_cloud = np.load(point_cloud_file).reshape(-1, 4)
+    #point_cloud = point_cloud[point_cloud[:,2]<=0,:]
+    # Extract the X, Y, and Z coordinates from the point cloud data
+    points_xyz = point_cloud[:, :3]
+
+    # Build a KD-tree for fast nearest neighbor search
+    kdtree = KDTree(points_xyz)
+
+    # Calculate the grid indices for each point
+    grid_indices = np.floor(points_xyz[:, :2] / grid_size).astype(int)
+
+    # Initialize the labels for the point cloud
+    labels = np.zeros(point_cloud.shape[0])
+
+    # Iterate through each grid cell
+    for grid_index in np.unique(grid_indices, axis=0):
+        # Get the points in the current grid cell
+        grid_points = points_xyz[np.all(grid_indices == grid_index, axis=1)]
+
+        # Check if the number of points in the cell is above the threshold
+        if grid_points.shape[0] >= min_points:
+            # Calculate the height variation within the grid cell
+            height_diff = np.max(grid_points[:, 2]) - np.min(grid_points[:, 2])
+
+            # Check if the height variation is below the threshold
+            if height_diff <= max_height_diff:
+                # Mark the points in the grid cell as ground points
+                grid_indices_in_cell = np.where(np.all(grid_indices == grid_index, axis=1))[0]
+                labels[grid_indices_in_cell] = 1
+
+    # Separate the ground and non-ground points based on the labels
+    ground_points = point_cloud[labels == 1]
+    non_ground_points = point_cloud[labels == 0]
+    lidar_raw = non_ground_points[:, :3]
+    print('ffff',lidar_raw.shape)
+    print(lidar_raw)
+    # Create a 3D plot
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Plot ground points in red color
+    ax.scatter(ground_points[:, 0], ground_points[:, 1], ground_points[:, 2], c='r', marker='.')
+
+    # Plot non-ground points in green color
+    ax.scatter(lidar_raw[:, 0], lidar_raw[:, 1], lidar_raw[:, 2], c='g', marker='.')
+
+    # Set axes labels
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+
+    # Show the plot
+    plt.show()
 
 <p align="center">   
   <img src="https://github.com/Mboubaker/Lidar_Evidential_occupancy_grid_mapping-/assets/97898968/29f3cf16-1d84-41fa-a155-d32d58063653.png?raw=true" alt="Sublime's custom image"/>
