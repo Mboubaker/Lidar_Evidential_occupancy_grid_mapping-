@@ -212,25 +212,25 @@ To fuse mass functions, there are several operators. Each operator has particula
 
 The fuction look like the following:
 
-  def update_dgm_conj(prior_dgm,new_dgm):
-  ### Calculate conflicting mass
-  conflict_mass = 0
-  ### Calculate free mass
-  free_mass = np.multiply(prior_dgm[:,:,0],new_dgm[:,:,2])
-  free_mass = np.add(free_mass,np.multiply(prior_dgm[:,:,2],new_dgm[:,:,0]))
-  free_mass = np.add(free_mass,np.multiply(prior_dgm[:,:,2],new_dgm[:,:,2]))
-  free_mass = np.divide(free_mass,1-conflict_mass)
+    def update_dgm_conj(prior_dgm,new_dgm):
+    ###Calculate conflicting mass
+    conflict_mass = 0
+    ###Calculate free mass
+    free_mass = np.multiply(prior_dgm[:,:,0],new_dgm[:,:,2])
+    free_mass = np.add(free_mass,np.multiply(prior_dgm[:,:,2],new_dgm[:,:,0]))
+    free_mass = np.add(free_mass,np.multiply(prior_dgm[:,:,2],new_dgm[:,:,2]))
+    free_mass = np.divide(free_mass,1-conflict_mass)
 
-  ### Calculate occupied mass
-  occ_mass = np.multiply(prior_dgm[:,:,0],new_dgm[:,:,1])
-  occ_mass = np.add(occ_mass,np.multiply(prior_dgm[:,:,1],new_dgm[:,:,0]))
-  occ_mass = np.add(occ_mass,np.multiply(prior_dgm[:,:,1],new_dgm[:,:,1]))
-  occ_mass = np.divide(occ_mass,1-conflict_mass)
+    ###Calculate occupied mass
+    occ_mass = np.multiply(prior_dgm[:,:,0],new_dgm[:,:,1])
+    occ_mass = np.add(occ_mass,np.multiply(prior_dgm[:,:,1],new_dgm[:,:,0]))
+    occ_mass = np.add(occ_mass,np.multiply(prior_dgm[:,:,1],new_dgm[:,:,1]))
+    occ_mass = np.divide(occ_mass,1-conflict_mass)
 
-  ### Calculate unknown mass
-  unknown_mass = np.multiply(prior_dgm[:,:,0],new_dgm[:,:,0])
-  unknown_mass = np.divide(unknown_mass,1-conflict_mass)
+    ###Calculate unknown mass
+    unknown_mass = np.multiply(prior_dgm[:,:,0],new_dgm[:,:,0])
+    unknown_mass = np.divide(unknown_mass,1-conflict_mass)
   
-  updated_dgm1 = np.stack((unknown_mass,occ_mass,free_mass),axis=2)
-  return updated_dgm1,conflict_mass, map_decision 
+    updated_dgm1 = np.stack((unknown_mass,occ_mass,free_mass),axis=2)
+    return updated_dgm1,conflict_mass, map_decision 
 
