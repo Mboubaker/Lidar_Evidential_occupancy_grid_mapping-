@@ -266,3 +266,20 @@ The fuction look like the following:
       updated_dgm1 = np.stack((unknown_mass,occ_mass,free_mass),axis=2)
   
       return updated_dgm1,conflict_mass
+
+
+
+
+
+### 5 - Decision making using Pignistic Probability
+When a decision must be made, we use the expected utility theory, what implies the need to construct a probability function. This is achieved by the so-called pignistic transformation which transform the mass functions of each cell in the grid into probabilities and denoted by BetP. Decisions are then achieved by computing the expected utilities of the acts using BetP as the probability function needed
+to compute the expectations.
+
+
+<p align="center">   
+  <img src="https://github.com/Mboubaker/Lidar_Evidential_occupancy_grid_mapping-/assets/97898968/1f883f0a-014a-484f-8409-1da398fa1080.png?raw=true" alt="Sublime's custom image"/>
+       
+</p>
+<p align="center">                                  
+Figure :  Transition from mass function to decision using pignistic probability
+
