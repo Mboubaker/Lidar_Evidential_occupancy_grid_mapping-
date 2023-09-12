@@ -1,6 +1,6 @@
 This reposity present an approach to build 2D occupancy grid maps with Lidar data
 
-## Pipeline for creating an obvious occupancy grid from Lidar data
+## Pipeline for creating an evidential occupancy grid from Lidar data
 ### 1 - Ground filtering method
 ### 2 - Creation of a Local evidential occupancy grid using Lidar data (KITTI dataset: velodyne) 
 ### 3 - Transformation of the Occupancy Grid
@@ -13,4 +13,4 @@ This reposity present an approach to build 2D occupancy grid maps with Lidar dat
        
 </p>
 <p align="center">                                  
-Figure : the intensity layer as grayscale image
+Figure : Pipeline for creating an evidential occupancy grid from Lidar data
