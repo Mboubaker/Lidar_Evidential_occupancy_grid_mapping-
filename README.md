@@ -158,3 +158,21 @@ The fuction look like the following:
 </p>
 <p align="center">                                  
 Figure :  Filtering of points on the ground, In red: points on the ground,  In green: Points not on the ground
+
+
+
+### 2 - Creation of a Local evidential occupancy grid using Lidar data (KITTI dataset: velodyne) 
+
+To download the dataset : https://www.cvlibs.net/datasets/kitti/raw_data.php
+
+### 3 - Transformation of the Occupancy Grid
+
+Before the grid is updated again at the next time step, it must be shifted according to the movement of the Robot. Therefore, we need to find the next pose of the vehicle.
+
+
+<p align="center">   
+  <img src="https://github.com/Mboubaker/Lidar_Evidential_occupancy_grid_mapping-/assets/97898968/8b535954-9e7a-4c45-a8fe-45956dde3e97.gif?raw=true" alt="Sublime's custom image"/>
+       
+</p>
+<p align="center">                                  
+Figure :  Filtering of points on the ground, In red: points on the ground,  In green: Points not on the ground
