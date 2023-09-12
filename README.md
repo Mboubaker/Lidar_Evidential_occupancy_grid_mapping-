@@ -172,22 +172,21 @@ Before the grid is updated again at the next time step, it must be shifted accor
 The fuction look like the following:
 
 
-  def shift_pose_dgm(dgm, init, fin):
-  dgm_o = dgm.copy()
-  theta = init[2] 
-  rot_m = np.array([[np.cos(theta),np.sin(theta)],[-np.sin(theta),np.cos(theta)]])
-  trs_m = np.array([[init[0]],[init[1]]])
-  point = np.array(fin[:2]).reshape((-1,1))
-  point_1 = (point - trs_m)
-  point_2 = np.dot(rot_m,-point_1)
-  delta_theta = (fin[2] - init[2])
-  delta = np.array([point_2[1,0]/RESOLUTION,point_2[0,0]/RESOLUTION,0])
-
-  M = np.array([[1,0,delta[0]],[0,1,-delta[1]]])
-  dst = cv2.warpAffine(dgm_o,M,(dgm_o.shape[1],dgm_o.shape[0]),borderValue=0.5)
-  M = cv2.getRotationMatrix2D((dgm_o.shape[1]/2+0.5,dgm_o.shape[0]/2+0.5),delta_theta,1)
-  dst = cv2.warpAffine(dst,M,(dgm_o.shape[1],dgm_o.shape[0]),borderValue=0.5)
-  return dst
+    def shift_pose_dgm(dgm, init, fin):
+    dgm_o = dgm.copy()
+    theta = init[2] 
+    rot_m = np.array([[np.cos(theta),np.sin(theta)],[-np.sin(theta),np.cos(theta)]])
+    trs_m = np.array([[init[0]],[init[1]]])
+    point = np.array(fin[:2]).reshape((-1,1))
+    point_1 = (point - trs_m)
+    point_2 = np.dot(rot_m,-point_1)
+    delta_theta = (fin[2] - init[2])
+    delta = np.array([point_2[1,0]/RESOLUTION,point_2[0,0]/RESOLUTION,0])
+    M = np.array([[1,0,delta[0]],[0,1,-delta[1]]])
+    dst = cv2.warpAffine(dgm_o,M,(dgm_o.shape[1],dgm_o.shape[0]),borderValue=0.5)
+    M = cv2.getRotationMatrix2D((dgm_o.shape[1]/2+0.5,dgm_o.shape[0]/2+0.5),delta_theta,1)
+    dst = cv2.warpAffine(dst,M,(dgm_o.shape[1],dgm_o.shape[0]),borderValue=0.5)
+    return dst
 
   
 <p align="center">   
