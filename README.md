@@ -306,7 +306,7 @@ These metrics can provide different information about the performance of the occ
 The fuction look like the following:
 
 
-      def evaluate_occupancy_map(occupancy_map, ground_truth_map):
+    def evaluate_occupancy_map(occupancy_map, ground_truth_map):
     # Ensure both maps have the same shape
 
 
